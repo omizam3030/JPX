@@ -1,5 +1,5 @@
-#!/usr/bin/env sh
-
+#!/data/data/com.termux/files/usr/bin/bash
+                 
 #
 # Copyright 2015 the original author or authors.
 #
