@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -18,16 +18,21 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Show files (debug)
+      - name: Show project files
         run: ls -la
 
-      - name: Build APK (Debug)
-        run: ./gradlew assembleDebug
+      - name: Fix gradlew permissions
+        run: |
+          chmod +x gradlew
+          ls -l gradlew
 
-      - name: Upload APK artifact
+      - name: Validate gradle wrapper
+        run: ./gradlew --version
+
+      - name: Build APK
+        run: ./gradlew clean assembleDebug --no-daemon
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: jpx-apk
